@@ -1,4 +1,5 @@
 /venv
+/venv38
 /.vscode
 /build
 /.pytest_cache
@@ -7,3 +8,5 @@
 __pycache__
 /.coverage
 /wheel-conv-demo
+/testing-pypi-server
+parser.out

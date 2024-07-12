@@ -138,6 +138,14 @@ class PatternVisitor(ast.NodeVisitor):
     def visit_MatchValue(self, node: ast.MatchValue) -> PatternVisitorReturns:
         return ast.Compare(self.subject, [ast.Eq()], [node.value]), []
 
+    def visit_MatchSingleton(self, node: ast.MatchSingleton) -> Any:
+        """
+        According to https://docs.python.org/3/library/ast.html#ast.MatchSingleton, `ast.MatchSingleton` is used for comparing
+        None, True, False using `is` operator.
+        """
+        return ast.Compare(self.subject, [ast.Is()], [ast.Constant(node.value)]), []
+        # return super().visit_MatchSingleton(node)
+
     def visit_MatchMapping(self, node: ast.MatchMapping) -> PatternVisitorReturns:
         print(ast.dump(node))
         # Conditions generated in the mapping
@@ -209,10 +217,6 @@ class MainConverter(ast.NodeVisitor):
     So we create a new value `subject_value` to store `call(y)`'s value.
     """
 
-    # def __init__(self) -> None:
-    #     super().__init__()
-    #     self.extra_stmts_before_if: list[ast.Assign] = []
-
     def visit_Match(self, node: ast.Match) -> tuple[list[ast.Assign], ast.If]:
         # If subject is not a Name or Constant, we need to create a new value to store the result.
         extra_stmts_before_if: list[ast.Assign] = []
@@ -281,3 +285,19 @@ class TransformerToLegacy(ast.NodeTransformer):
 
     def visit_Match(self, node: ast.Match) -> list[ast.stmt]:
         return MainConverter().visit(node)
+
+
+def convert_file(file_path: str, output_path: str, file_encoding="utf8"):
+    """
+    Convert a python source file to a python source file compatible with python 3.9 or lower.
+
+    :file_path: The path of the python source file.
+    :output_path: The path of the output file.
+    """
+    with open(file_path, "r", encoding=file_encoding) as f:
+        src = f.read()
+    tree = ast.parse(src)
+    tree = TransformerToLegacy().visit(tree)
+    with open(output_path, "w") as f:
+        f.write(ast.unparse(tree))
+    return tree

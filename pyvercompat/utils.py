@@ -1,9 +1,34 @@
 import ast
 import inspect
+import os
 from pyvercompat.converter import TransformerToLegacy
 import logging
 
 logging.basicConfig(level=logging.INFO)
+
+
+def last_item_of_fs_item(path: str):
+    if os.path.isfile(path):
+        return os.path.basename(path)
+    else:
+        return os.path.basename(os.path.normpath(path))
+
+
+def ensure_directory(dir: str):
+    """
+    Ensure directory exists
+    """
+    os.makedirs(dir, exist_ok=True)
+
+
+def ensure_abs(dir_if_rel: str, path: str):
+    """
+    Ensure path is absolute
+    """
+    if os.path.isabs(path):
+        return path
+    else:
+        return os.path.join(dir_if_rel, path)
 
 
 def ensure_same_functionality(

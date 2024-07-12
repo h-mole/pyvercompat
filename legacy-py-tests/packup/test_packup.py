@@ -8,7 +8,7 @@ from pyvercompat import (
     PY_SUB_310,
     PY_38_39,
 )
-from pyvercompat.utils import ensure_abs
+from pyvercompat.utils import ensure_abs, ensure_directory
 
 current_file_folder = os.path.abspath(os.path.dirname(__file__))
 assets_folder = os.path.join(current_file_folder, "assets")
@@ -22,6 +22,7 @@ def test_packup():
     packer.run(
         [PY_OVER_310, PY_38_39],
         [ensure_abs(packer.sourcefile_dir, item) for item in ["UppaalLTLParser", "README.md", "setup.py"]],
-        wheel_output_dir=os.path.join(outputs_folder, "dist"),
+        wheel_output_dir=ensure_directory(os.path.join(current_file_folder, "whl-output")),
         ignored_file_types=[".pyc"],
+        interactive=False,
     )

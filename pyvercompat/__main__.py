@@ -5,6 +5,7 @@ from .wheel_packer import (
     PYTHON_COMPATIBILITY_TAGS_MAPPING,
     PyVerCompatWheelPacker,
     PYTHON_VERSION,
+    convert_file
 )
 from .utils import ensure_directory, ensure_abs
 
@@ -67,6 +68,31 @@ subparsers = parser.add_subparsers(
     title="Subcommands",
     description="Valid subcommands",
 )
+single_file_converter_parser = subparsers.add_parser(
+    "convert-file",
+    help=("Convert a single file's python3.10+ semantics to python3.9- semantics"),
+    formatter_class=LFEnabledFormatter,
+)
+
+single_file_converter_parser.add_argument(
+    "-i",
+    "--input-file",
+    help="Input file path",
+    required=True,
+)
+single_file_converter_parser.add_argument(
+    "-o",
+    "--output",
+    help="Output file path",
+    required=True,
+)
+single_file_converter_parser.add_argument(
+    "--encoding",
+    help="Encoding of the input file",
+    required=False,
+    default="utf8",
+)
+single_file_converter_parser.set_defaults(func=lambda args: convert_file(args.input_file, args.output, args.encoding))
 
 wheel_converter_parser = subparsers.add_parser(
     "create-wheel",

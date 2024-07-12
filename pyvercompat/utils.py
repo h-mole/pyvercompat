@@ -19,6 +19,7 @@ def ensure_directory(dir: str):
     Ensure directory exists
     """
     os.makedirs(dir, exist_ok=True)
+    return dir
 
 
 def ensure_abs(dir_if_rel: str, path: str):

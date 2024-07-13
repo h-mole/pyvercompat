@@ -147,7 +147,7 @@ graph TD
 cmd[Command line input]
 convert_file["call `convert_file()`"]
 invoke_transformer["Invoke `TransformerToLegacy(ast.NodeTransformer)` for semantics replacement"]
-main_converter["Invoke `MainConverter(ast.NodeVisitor)` to visit the structure of `match...case...`<br>1. Create a new variable to store the switch subject value to avoid multiple-times evaluations<br>2. Extract the switch subject value and all cases"]
+main_converter["Invoke `MainConverter(ast.NodeVisitor)` to visit the structure of `match...case...`<br>1. Create a new variable to store the match subject value to avoid multiple-times evaluations<br>2. Extract the match subject value and all cases"]
 parse_cases["Invoke `PatternVisitor(ast.NodeVisitor)` to recursively parse every case;<br>Then generate the corresponding if-condition and if-body"]
 link_ifs["The `MainConverter` links all generated if-conditions and if-bodys to a series of if-elif-...-else statements"]
 replace_structure["Replace the original `match...case...` structure with the converted `if-elif-elif...-else` structure"]

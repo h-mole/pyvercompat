@@ -28,6 +28,13 @@ PyVerCompat is a tool to convert (downgrading) Python `3.10+` codes' semantic fe
 
 # Usage
 
+```
+git clone https://github.com/hzyrc6011/pyvercompat
+cd pyvercompat
+```
+
+(This repository is also hosted on gitee at: https://gitee.com/mole-h-6011/pyvercompat)
+
 ## Convert Single File
 
 Go to the path `demos/wheels-packup`, the file `match_case_demo.py` features `match-case` semantic:

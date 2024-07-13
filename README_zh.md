@@ -28,6 +28,11 @@ PyVerCompat 是一个工具，用于将 Python `3.10+` 代码的语义特性转�
 
 # 使用方法
 
+```zh
+git clone https://gitee.com/mole-h-6011/pyvercompat
+cd pyvercompat
+```
+
 ## 转换单个文件
 
 在路径 `demos/wheels-packup`下查看此示例。文件 `match_case_demo.py` 中含有一个 `match-case` 语法：

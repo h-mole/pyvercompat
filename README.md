@@ -1,5 +1,6 @@
 PyVerCompat: Semantic Features Conversion Tool for Pure-Python Code or Projects
 ===============================================================================
+**[[中文文档](./README_zh.md)]** **[[Gitee托管地址](https://gitee.com/mole-h-6011/pyvercompat)]**
 
 ![Logo](docs/pics/logo.png)
 
